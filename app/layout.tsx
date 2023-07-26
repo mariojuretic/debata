@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
+import NextAuthProvider from "@/components/NextAuthProvider";
 
 import "./globals.css";
 
@@ -19,9 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} text-slate-900`}>
-        <Header />
-        <main>{children}</main>
+      <body
+        className={`${inter.className} h-screen overflow-y-scroll bg-slate-200 text-slate-900`}
+      >
+        <NextAuthProvider>
+          <Header />
+          <main>{children}</main>
+        </NextAuthProvider>
       </body>
     </html>
   );

@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -16,10 +18,13 @@ import {
   MegaphoneIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import logo from "@/assets/logo.png";
 
 export default function Header() {
+  const { data: session } = useSession();
+
   return (
     <header className="sticky top-0 z-50 flex w-full items-center space-x-2 bg-white p-2 shadow-sm lg:space-x-4 lg:px-4">
       <div className="flex shrink-0 grow items-center space-x-2 lg:space-x-4">
@@ -32,7 +37,7 @@ export default function Header() {
           />
         </Link>
 
-        <button className="hidden shrink-0 items-center space-x-2 rounded border border-transparent p-2 text-slate-500 hover:border-slate-200 lg:flex 2xl:min-w-[320px]">
+        <button className="hidden shrink-0 items-center space-x-2 rounded border border-transparent p-2 hover:border-slate-200 lg:flex 2xl:min-w-[320px]">
           <div className="flex shrink-0 grow items-center space-x-2">
             <HomeIcon className="h-5 w-5" />
             <span className="text-sm">Home</span>
@@ -73,10 +78,23 @@ export default function Header() {
           <Bars3Icon className="header-icon" />
         </div>
 
-        <button className="ml-2 flex shrink-0 items-center space-x-1 rounded border border-slate-200 p-2 text-slate-500 hover:border-slate-300 lg:ml-4 lg:space-x-2 lg:px-4">
-          <UserCircleIcon className="h-5 w-5" />
-          <span className="text-sm">Sign In</span>
-        </button>
+        {session ? (
+          <button
+            onClick={() => signOut()}
+            className="ml-2 flex shrink-0 items-center space-x-1 rounded border border-slate-200 p-2 text-slate-500 hover:border-slate-300 lg:ml-4 lg:space-x-2 lg:px-4"
+          >
+            <div className="h-5 w-5 rounded-full bg-orange-600" />
+            <span className="text-sm">{session.user?.name}</span>
+          </button>
+        ) : (
+          <button
+            onClick={() => signIn("reddit")}
+            className="ml-2 flex shrink-0 items-center space-x-1 rounded border border-slate-200 p-2 text-slate-500 hover:border-slate-300 lg:ml-4 lg:space-x-2 lg:px-4"
+          >
+            <UserCircleIcon className="h-5 w-5" />
+            <span className="text-sm">Sign In</span>
+          </button>
+        )}
       </div>
     </header>
   );
