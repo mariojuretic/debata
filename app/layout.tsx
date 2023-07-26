@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import Header from "@/components/Header";
 import NextAuthProvider from "@/components/NextAuthProvider";
+import ApolloWrapper from "@/components/ApolloWrapper";
 
 import "./globals.css";
 
@@ -24,8 +25,10 @@ export default function RootLayout({
         className={`${inter.className} h-screen overflow-y-scroll bg-slate-200 text-slate-900`}
       >
         <NextAuthProvider>
-          <Header />
-          <main>{children}</main>
+          <ApolloWrapper>
+            <Header />
+            <main>{children}</main>
+          </ApolloWrapper>
         </NextAuthProvider>
       </body>
     </html>
