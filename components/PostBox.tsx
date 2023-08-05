@@ -8,9 +8,9 @@ import { PhotoIcon, LinkIcon } from "@heroicons/react/24/outline";
 
 type FormData = {
   postTitle: string;
-  postBody: string;
+  postContent: string;
   postImage: string;
-  subredditTitle: string;
+  topicName: string;
 };
 
 export default function PostBox() {
@@ -75,28 +75,28 @@ export default function PostBox() {
       {!!watch("postTitle") && (
         <div className="flex flex-col space-y-2">
           <div className="flex items-center">
-            <p className="min-w-[5rem] sm:min-w-[6rem]">Body:</p>
+            <p className="min-w-[5rem] sm:min-w-[6rem]">Content:</p>
             <input
               type="text"
-              placeholder="Text (optional)"
+              placeholder="Post body (optional)"
               className="grow rounded border border-slate-200 bg-slate-100 px-4 py-2 outline-none hover:border-slate-300"
-              {...register("postBody")}
+              {...register("postContent")}
             />
           </div>
 
           <div className="flex items-center">
-            <p className="min-w-[5rem] sm:min-w-[6rem]">Subreddit:</p>
+            <p className="min-w-[5rem] sm:min-w-[6rem]">Topic:</p>
             <input
               type="text"
               placeholder="e.g. nextjs"
               className="grow rounded border border-slate-200 bg-slate-100 px-4 py-2 outline-none hover:border-slate-300"
-              {...register("subredditTitle", { required: true })}
+              {...register("topicName", { required: true })}
             />
           </div>
 
           {showImageInput && (
             <div className="flex items-center">
-              <p className="min-w-[5rem] sm:min-w-[6rem]">Image URL:</p>
+              <p className="min-w-[5rem] sm:min-w-[6rem]">Image:</p>
               <input
                 type="text"
                 placeholder="Optional..."
@@ -112,8 +112,8 @@ export default function PostBox() {
                 <p>- Post title is required</p>
               )}
 
-              {errors.subredditTitle?.type === "required" && (
-                <p>- Subreddit is required</p>
+              {errors.topicName?.type === "required" && (
+                <p>- Topic is required</p>
               )}
             </div>
           )}
