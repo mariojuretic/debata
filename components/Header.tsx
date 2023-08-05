@@ -83,7 +83,14 @@ export default function Header() {
             onClick={() => signOut()}
             className="ml-2 flex shrink-0 items-center space-x-1 rounded border border-slate-200 p-2 text-slate-500 hover:border-slate-300 lg:ml-4 lg:space-x-2 lg:px-4"
           >
-            <div className="h-5 w-5 rounded-full bg-orange-600" />
+            <div className="relative h-5 w-5 overflow-hidden rounded border border-slate-300">
+              <Image
+                src={`https://api.dicebear.com/6.x/open-peeps/png?seed=${session.user?.name}`}
+                alt="Avatar"
+                fill
+                className="object-cover object-center"
+              />
+            </div>
             <span className="text-sm">{session.user?.name}</span>
           </button>
         ) : (
